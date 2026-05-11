@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
 import { CTASection } from "@/components/common/CTASection";
-import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { SectionTitle } from "@/components/common/SectionTitle";
 import { pledgeGroups } from "@/data/pledges";
 
@@ -71,13 +70,14 @@ export default function PledgesPage() {
                 className="scroll-mt-32 overflow-hidden rounded-[2rem] border border-[#E5E7EB] bg-white shadow-sm"
               >
                 <div className={`grid gap-0 lg:grid-cols-[0.94fr_1.06fr] ${index % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
-                  <div className="border-b border-[#E5E7EB] bg-[#FFF9E8] p-4 lg:border-b-0 lg:border-r">
-                    <ImageWithFallback
-                      src={section.image}
-                      alt={section.imageAlt}
-                      className="h-[260px] rounded-[1.5rem] bg-white md:h-[420px] lg:h-full lg:min-h-[560px]"
-                      imgClassName="object-contain"
-                    />
+                  <div className="border-b border-[#E5E7EB] bg-[#FFF9E8] p-2 md:p-4 lg:border-b-0 lg:border-r">
+                    <div className="rounded-[1.5rem] bg-white">
+                      <img
+                        src={section.image}
+                        alt={section.imageAlt}
+                        className="block h-auto w-full lg:h-full lg:min-h-[560px] lg:object-contain"
+                      />
+                    </div>
                   </div>
 
                   <div className="p-6 md:p-8">

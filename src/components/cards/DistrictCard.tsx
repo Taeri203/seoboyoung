@@ -1,19 +1,19 @@
 import { CheckCircle2 } from "lucide-react";
 import type { District } from "@/types";
-import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 
 export function DistrictCard({ district }: { district: District }) {
   return (
     <article className="overflow-hidden rounded-[2rem] border border-[#E5E7EB] bg-white shadow-sm">
       <div className="grid gap-0 lg:grid-cols-[0.42fr_0.58fr]">
         {district.image ? (
-          <div className="border-b border-[#E5E7EB] bg-[#FFF9E8] p-4 lg:border-b-0 lg:border-r">
-            <ImageWithFallback
-              src={district.image}
-              alt={district.imageAlt || `${district.name} 공약 이미지`}
-              className="h-[220px] rounded-[1.4rem] bg-white lg:h-full lg:min-h-[420px]"
-              imgClassName="object-contain"
-            />
+          <div className="border-b border-[#E5E7EB] bg-[#FFF9E8] p-2 md:p-4 lg:border-b-0 lg:border-r">
+            <div className="rounded-[1.4rem] bg-white">
+              <img
+                src={district.image}
+                alt={district.imageAlt || `${district.name} 공약 이미지`}
+                className="block h-auto w-full lg:h-full lg:min-h-[420px] lg:object-contain"
+              />
+            </div>
           </div>
         ) : null}
         <div className="p-6 md:p-8">
