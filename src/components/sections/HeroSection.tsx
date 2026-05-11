@@ -41,7 +41,7 @@ export function HeroSection() {
         </div>
 
         <div className="relative mx-auto w-full max-w-[620px]">
-          <div className="absolute -inset-4 rounded-[2.5rem] bg-[#0052B8] opacity-10 blur-3xl" />
+          <div className="pointer-events-none absolute -inset-4 rounded-[2.5rem] bg-[#0052B8] opacity-10 blur-3xl" aria-hidden />
           <div className="image-card-glow relative overflow-hidden rounded-[2.2rem] border border-white/80 bg-white p-3">
             <ImageWithFallback
               src={siteConfig.images.kimField}
@@ -49,7 +49,7 @@ export function HeroSection() {
               className="h-[430px] rounded-[1.7rem] md:h-[590px]"
               imgClassName="object-cover object-center"
             />
-            <div className="absolute inset-x-3 bottom-3 rounded-b-[1.7rem] bg-gradient-to-t from-[#11205A]/80 via-[#11205A]/18 to-transparent p-5 pt-24 text-white">
+            <div className="pointer-events-none absolute inset-x-3 bottom-3 rounded-b-[1.7rem] bg-gradient-to-t from-[#11205A]/80 via-[#11205A]/18 to-transparent p-5 pt-24 text-white">
               <p className="inline-flex items-center gap-2 rounded-full bg-[#FFD84D] px-3 py-1 text-sm font-black text-[#11205A]">
                 <MapPinned size={15} aria-hidden />
                 {siteConfig.area}
