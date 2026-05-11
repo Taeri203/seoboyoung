@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  --primary-blue: #0052b8;
+  --deep-blue: #11205a;
+  --bright-blue: #0877e8;
+  --light-blue: #eaf4ff;
+  --accent-yellow: #ffd84d;
+  --soft-yellow: #fff7d6;
+  --cream: #fff9e8;
+  --ink: #101828;
+  --muted: #667085;
+  --line: #e5e7eb;
+  --section-bg: #f8fafc;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--ink);
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.container-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.campaign-gradient {
+  background:
+    radial-gradient(circle at 78% 14%, rgba(255, 216, 77, 0.34), transparent 30%),
+    radial-gradient(circle at 10% 18%, rgba(8, 119, 232, 0.18), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #eaf4ff 50%, #fff9e8 100%);
+}
+
+.soft-grid {
+  background-image:
+    linear-gradient(rgba(17, 32, 90, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(17, 32, 90, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.image-card-glow {
+  box-shadow: 0 26px 60px rgba(17, 32, 90, 0.18);
+}
+
+.form-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 0.95rem 1rem;
+  color: var(--ink);
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 4px rgba(0, 82, 184, 0.12);
+}
+
+@media (max-width: 767px) {
+  .container-page {
+    width: min(100% - 24px, 1120px);
+  }
+}
