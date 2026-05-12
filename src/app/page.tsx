@@ -90,8 +90,8 @@ export default function HomePage() {
       <section className="py-16">
         <div className="container-page">
           <SectionTitle eyebrow="동별 공약" title="진천·유천·대곡, 생활권별로 다르게 보겠습니다" align="center" />
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {districts.map((district) => <DistrictCard key={district.name} district={district} />)}
+          <div className="mt-10 grid items-stretch gap-6 md:grid-cols-3">
+            {districts.map((district) => <DistrictCard key={district.name} district={district} variant="compact" />)}
           </div>
         </div>
       </section>
