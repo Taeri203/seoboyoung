@@ -17,13 +17,13 @@ export default function VoicePage() {
         <div className="container-page">
           <p className="inline-flex rounded-full bg-white px-4 py-2 text-sm font-black text-[#0052B8]">유권자의 소리</p>
           <h1 className="mt-5 text-4xl font-black tracking-tight text-[#11205A] md:text-6xl">유권자의 소리</h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-[#344054]">우리 동네 보육, 교육, 복지, 교통 의견을 남겨주세요.</p>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-[#344054]">우리 동네 보육, 교육, 복지, 교통 의견을 남겨주세요. 접수된 내용은 서보영 선거사무소 담당자에게 전달됩니다.</p>
         </div>
       </section>
       <section className="py-16">
         <div className="container-page grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
           <div className="grid gap-5 self-start">
-            <SectionTitle title="작은 의견도 동네를 바꿉니다" description="생활 속 불편, 필요한 변화, 우리 동네 제안을 편하게 들려주세요." />
+            <SectionTitle title="작은 의견도 동네를 바꿉니다" description="생활 속 불편과 필요한 변화를 편하게 남겨주세요. 접수된 의견은 공약 보완과 현장점검에 참고하겠습니다." />
             <article className="overflow-hidden rounded-[2rem] border border-[#E5E7EB] bg-white shadow-sm">
               <ImageWithFallback
                 src={siteConfig.images.busCampaign}

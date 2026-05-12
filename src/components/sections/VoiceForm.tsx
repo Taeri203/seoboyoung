@@ -8,12 +8,49 @@ const categories = ["보육", "교육", "복지", "교통", "도시설계", "소
 
 export function VoiceForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [startedAt] = useState(() => Date.now().toString());
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
-    event.currentTarget.reset();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setSubmitting(true);
+    setErrorMessage("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      residence: formData.get("residence"),
+      category: formData.get("category"),
+      location: formData.get("location"),
+      title: formData.get("title"),
+      content: formData.get("content"),
+      website: formData.get("website"),
+      startedAt: formData.get("startedAt"),
+    };
+
+    try {
+      const response = await fetch("/api/voice", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json().catch(() => ({}))) as { message?: string };
+
+      if (!response.ok) {
+        throw new Error(result.message || "의견 접수 중 오류가 발생했습니다.");
+      }
+
+      setSubmitted(true);
+      form.reset();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "의견 접수 중 오류가 발생했습니다.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (submitted) {
@@ -39,6 +76,8 @@ export function VoiceForm() {
 
   return (
     <form onSubmit={handleSubmit} className="grid gap-5 rounded-[2rem] border border-[#E5E7EB] bg-white p-5 shadow-xl md:p-8">
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <input type="hidden" name="startedAt" value={startedAt} />
       <div className="grid gap-5 md:grid-cols-2">
         <Field label="이름" id="name">
           <input required id="name" name="name" className="form-input" placeholder="성함을 입력해 주세요" />
@@ -68,19 +107,21 @@ export function VoiceForm() {
         <input required id="title" name="title" className="form-input" placeholder="의견을 한 줄로 적어주세요" />
       </Field>
       <Field label="내용" id="content">
-        <textarea required id="content" name="content" rows={7} className="form-input resize-y" placeholder="언제, 어디서, 어떤 의견이 있는지 편하게 적어주세요." />
+        <textarea required minLength={10} id="content" name="content" rows={7} className="form-input resize-y" placeholder="언제, 어디서, 어떤 의견이 있는지 편하게 적어주세요." />
       </Field>
       <div className="rounded-2xl border border-[#E5E7EB] bg-[#F8FAFC] p-4 text-sm leading-7 text-[#667085]">
         서보영 선거사무소는 유권자 의견 접수 및 답변을 위해 이름, 연락처, 거주지, 의견 내용을 수집합니다.
-        수집된 정보는 의견 확인 및 답변 목적으로만 사용되며 목적 달성 시 파기됩니다.
+        접수된 의견은 담당자 이메일로 전송되며 의견 확인 및 답변 목적으로만 사용됩니다.
       </div>
       <label className="flex items-start gap-3 rounded-2xl bg-[#FFF7D6] p-4 text-sm font-bold text-[#344054]">
         <input required type="checkbox" className="mt-1" aria-label="개인정보 수집 동의" />
         개인정보 수집 및 이용에 동의합니다.
       </label>
-      <button type="submit" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0052B8] px-7 py-4 text-lg font-black text-white shadow-lg">
+      <p className="text-sm font-bold text-[#667085]">제출하신 의견은 서보영 선거사무소 담당자에게 안전하게 전달됩니다. 반복 제출이나 자동 제출로 의심되는 요청은 제한될 수 있습니다.</p>
+      {errorMessage ? <p className="rounded-2xl bg-[#FEF2F2] p-4 text-sm font-bold text-[#B42318]" role="alert">{errorMessage}</p> : null}
+      <button type="submit" disabled={submitting} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0052B8] px-7 py-4 text-lg font-black text-white shadow-lg disabled:cursor-not-allowed disabled:opacity-60">
         <Send size={19} aria-hidden />
-        의견 남기기
+        {submitting ? "접수 중..." : "의견 남기기"}
       </button>
     </form>
   );

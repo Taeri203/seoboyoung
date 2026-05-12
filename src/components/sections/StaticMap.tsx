@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { MapPin, Route } from "lucide-react";
 import { mapCategories, mapMarkers } from "@/data/map";
 import type { MapCategory, MapMarker } from "@/types";
@@ -29,11 +29,13 @@ export function StaticMap({ preview = false }: { preview?: boolean }) {
   const visibleMarkers = useMemo(() => mapMarkers.filter((marker) => matchesCategory(marker, category)), [category]);
   const markersToRender = preview ? mapMarkers.slice(0, 8) : visibleMarkers;
 
-  useEffect(() => {
-    if (!visibleMarkers.some((marker) => marker.title === selected.title)) {
-      setSelected(visibleMarkers[0] || mapMarkers[0]);
+  function handleCategoryChange(nextCategory: MapCategory) {
+    setCategory(nextCategory);
+    const nextMarkers = mapMarkers.filter((marker) => matchesCategory(marker, nextCategory));
+    if (!nextMarkers.some((marker) => marker.title === selected.title)) {
+      setSelected(nextMarkers[0] || mapMarkers[0]);
     }
-  }, [selected.title, visibleMarkers]);
+  }
 
   return (
     <div className={`grid gap-6 ${preview ? "" : "lg:grid-cols-[1.08fr_0.92fr]"}`}>
@@ -123,7 +125,7 @@ export function StaticMap({ preview = false }: { preview?: boolean }) {
               <button
                 key={item}
                 type="button"
-                onClick={() => setCategory(item)}
+                onClick={() => handleCategoryChange(item)}
                 className={`rounded-full border px-4 py-2 text-sm font-black transition ${
                   category === item ? "border-[#0052B8] bg-[#0052B8] text-white" : "border-[#E5E7EB] bg-white text-[#11205A]"
                 }`}
